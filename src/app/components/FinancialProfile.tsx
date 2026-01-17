@@ -18,16 +18,16 @@ export function FinancialProfile({ profile, onUpdate }: { profile: UserProfile; 
       </CardHeader>
       <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <label className="text-sm">
-          <span className="text-gray-600 dark:text-gray-300">Name</span>
-          <input className="mt-1 w-full border dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" value={local.name} onChange={(e) => updateField('name', e.target.value)} />
+          <span className="text-muted-foreground">Name</span>
+          <input className="mt-1 w-full border border-border rounded p-2 bg-background text-foreground" value={local.name} onChange={(e) => updateField('name', e.target.value)} />
         </label>
         <label className="text-sm">
-          <span className="text-gray-600 dark:text-gray-300">Age</span>
-          <input type="number" className="mt-1 w-full border dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" value={local.age} onChange={(e) => updateField('age', Number(e.target.value))} />
+          <span className="text-muted-foreground">Age</span>
+          <input type="number" className="mt-1 w-full border border-border rounded p-2 bg-background text-foreground" value={local.age} onChange={(e) => updateField('age', Number(e.target.value))} />
         </label>
         <label className="text-sm">
-          <span className="text-gray-600 dark:text-gray-300">Employment</span>
-          <select className="mt-1 w-full border dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" value={local.employmentType} onChange={(e) => updateField('employmentType', e.target.value as any)}>
+          <span className="text-muted-foreground">Employment</span>
+          <select className="mt-1 w-full border border-border rounded p-2 bg-background text-foreground" value={local.employmentType} onChange={(e) => updateField('employmentType', e.target.value as any)}>
             <option value="salaried">Salaried</option>
             <option value="self-employed">Self Employed</option>
             <option value="student">Student</option>
@@ -35,20 +35,20 @@ export function FinancialProfile({ profile, onUpdate }: { profile: UserProfile; 
           </select>
         </label>
         <label className="text-sm">
-          <span className="text-gray-600 dark:text-gray-300">Monthly Income (₹)</span>
-          <input type="number" className="mt-1 w-full border dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" value={local.monthlyIncome} onChange={(e) => updateField('monthlyIncome', Number(e.target.value))} />
+          <span className="text-muted-foreground">Monthly Income (₹)</span>
+          <input type="number" className="mt-1 w-full border border-border rounded p-2 bg-background text-foreground" value={local.monthlyIncome} onChange={(e) => updateField('monthlyIncome', Number(e.target.value))} />
         </label>
         <label className="text-sm">
-          <span className="text-gray-600 dark:text-gray-300">Monthly Expenses (₹)</span>
-          <input type="number" className="mt-1 w-full border dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" value={local.monthlyExpenses} onChange={(e) => updateField('monthlyExpenses', Number(e.target.value))} />
+          <span className="text-muted-foreground">Monthly Expenses (₹)</span>
+          <input type="number" className="mt-1 w-full border border-border rounded p-2 bg-background text-foreground" value={local.monthlyExpenses} onChange={(e) => updateField('monthlyExpenses', Number(e.target.value))} />
         </label>
         <label className="text-sm">
-          <span className="text-gray-600 dark:text-gray-300">Existing Loans</span>
-          <input type="number" className="mt-1 w-full border dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" value={local.existingLoans} onChange={(e) => updateField('existingLoans', Number(e.target.value))} />
+          <span className="text-muted-foreground">Existing Loans</span>
+          <input type="number" className="mt-1 w-full border border-border rounded p-2 bg-background text-foreground" value={local.existingLoans} onChange={(e) => updateField('existingLoans', Number(e.target.value))} />
         </label>
         <label className="text-sm">
-          <span className="text-gray-600 dark:text-gray-300">Existing EMI (₹)</span>
-          <input type="number" className="mt-1 w-full border dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" value={local.existingEMI} onChange={(e) => updateField('existingEMI', Number(e.target.value))} />
+          <span className="text-muted-foreground">Existing EMI (₹)</span>
+          <input type="number" className="mt-1 w-full border border-border rounded p-2 bg-background text-foreground" value={local.existingEMI} onChange={(e) => updateField('existingEMI', Number(e.target.value))} />
         </label>
       </CardContent>
     </Card>

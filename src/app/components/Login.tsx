@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/app/components/ui/card';
 import { TrendingUp } from 'lucide-react';
+import { FinanceIllustration } from '@/app/components/FinanceIllustration';
 
 interface LoginProps {
   onLogin: (email: string, name: string) => void;
@@ -42,8 +43,11 @@ export function Login({ onLogin }: LoginProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Professional Finance Illustration Background */}
+      <FinanceIllustration />
+      
+      <div className="w-full max-w-md relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -51,8 +55,8 @@ export function Login({ onLogin }: LoginProps) {
               <TrendingUp className="size-8 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">CreditWise</h1>
-          <p className="text-gray-600 dark:text-gray-300 mt-1">Your Credit Health Platform</p>
+          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-blue-400 to-cyan-400">CreditWise</h1>
+          <p className="mt-1 text-white/80">Your Credit Health Platform</p>
         </div>
 
         {/* Form Card */}
@@ -67,7 +71,7 @@ export function Login({ onLogin }: LoginProps) {
             <form onSubmit={handleSubmit} className="space-y-4">
               {isSignup && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">
                     Full Name
                   </label>
                   <input
@@ -75,13 +79,13 @@ export function Login({ onLogin }: LoginProps) {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-muted-foreground mb-1">
                   Email Address
                 </label>
                 <input
@@ -89,12 +93,12 @@ export function Login({ onLogin }: LoginProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-muted-foreground mb-1">
                   Password
                 </label>
                 <input
@@ -102,7 +106,7 @@ export function Login({ onLogin }: LoginProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
 
@@ -139,7 +143,7 @@ export function Login({ onLogin }: LoginProps) {
         </Card>
 
         {/* Footer */}
-        <p className="text-center text-xs text-gray-600 dark:text-gray-400 mt-6">
+        <p className="text-center text-xs mt-6 text-white/60">
           Demo credentials: any email/password (min 6 chars)
         </p>
       </div>

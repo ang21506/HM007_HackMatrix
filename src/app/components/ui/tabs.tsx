@@ -17,7 +17,7 @@ export function Tabs({ defaultValue, className, children }: { defaultValue: stri
 }
 
 export function TabsList({ className, children }: { className?: string; children: React.ReactNode }) {
-  return <div className={clsx('rounded-md border bg-white dark:bg-gray-800 dark:border-gray-700', className)}>{children}</div>;
+  return <div className={clsx('rounded-md border border-border bg-card', className)}>{children}</div>;
 }
 
 export function TabsTrigger({ value, className, children }: { value: string; className?: string; children: React.ReactNode }) {
@@ -30,7 +30,7 @@ export function TabsTrigger({ value, className, children }: { value: string; cla
       onClick={() => ctx.setValue(value)}
       className={clsx(
         'px-3 text-sm rounded-md border transition-colors',
-        active ? 'bg-blue-600 text-white border-blue-600' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-600',
+        active ? 'bg-blue-600 text-white border-blue-600' : 'bg-card text-muted-foreground hover:bg-muted border-border',
         className,
       )}
     >

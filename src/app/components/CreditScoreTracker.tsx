@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/ui/card';
 import { CreditScoreData } from '@/app/types';
+import { AnimatedCreditScoreMeter } from '@/app/components/AnimatedCreditScoreMeter';
 
 export function CreditScoreTracker({ creditScore, history }: { creditScore: number; history: CreditScoreData[] }) {
   return (
@@ -7,14 +8,11 @@ export function CreditScoreTracker({ creditScore, history }: { creditScore: numb
       <CardHeader>
         <CardTitle>Credit Score</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-4">
-          <div className="text-4xl font-bold text-blue-600 dark:text-blue-400">{creditScore}</div>
-          <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded">
-            <div className="h-2 bg-blue-600 dark:bg-blue-400 rounded" style={{ width: `${(creditScore - 300) / 6}%` }} />
-          </div>
+      <CardContent className="space-y-6">
+        <div className="flex justify-center">
+          <AnimatedCreditScoreMeter score={creditScore} maxScore={900} />
         </div>
-        <div className="mt-4">
+        <div>
           <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">12-month trend</h4>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-xs text-gray-600 dark:text-gray-400">
             {history.map((h) => (

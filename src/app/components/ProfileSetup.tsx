@@ -83,41 +83,41 @@ export function ProfileSetup({ onComplete, onSkip, userName }: ProfileSetupProps
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Name */}
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">
                     Full Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => updateField('name', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                   {errors.name && <p className="text-sm text-red-600 mt-1">{errors.name}</p>}
                 </div>
 
                 {/* Age */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">
                     Age <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="number"
                     value={formData.age}
                     onChange={(e) => updateField('age', Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                   {errors.age && <p className="text-sm text-red-600 mt-1">{errors.age}</p>}
                 </div>
 
                 {/* Employment Type */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">
                     Employment Type <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={formData.employmentType}
                     onChange={(e) => updateField('employmentType', e.target.value as any)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   >
                     <option value="salaried">Salaried</option>
                     <option value="self-employed">Self-Employed</option>
@@ -128,56 +128,56 @@ export function ProfileSetup({ onComplete, onSkip, userName }: ProfileSetupProps
 
                 {/* Monthly Income */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">
                     Monthly Income (₹) <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="number"
                     value={formData.monthlyIncome}
                     onChange={(e) => updateField('monthlyIncome', Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                   {errors.monthlyIncome && <p className="text-sm text-red-600 mt-1">{errors.monthlyIncome}</p>}
                 </div>
 
                 {/* Monthly Expenses */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">
                     Monthly Expenses (₹) <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="number"
                     value={formData.monthlyExpenses}
                     onChange={(e) => updateField('monthlyExpenses', Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                   {errors.monthlyExpenses && <p className="text-sm text-red-600 mt-1">{errors.monthlyExpenses}</p>}
                 </div>
 
                 {/* Existing Loans */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">
                     Number of Existing Loans
                   </label>
                   <input
                     type="number"
                     value={formData.existingLoans}
                     onChange={(e) => updateField('existingLoans', Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                   {errors.existingLoans && <p className="text-sm text-red-600 mt-1">{errors.existingLoans}</p>}
                 </div>
 
                 {/* Existing EMI */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">
                     Total Monthly EMI (₹)
                   </label>
                   <input
                     type="number"
                     value={formData.existingEMI}
                     onChange={(e) => updateField('existingEMI', Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                   {errors.existingEMI && <p className="text-sm text-red-600 mt-1">{errors.existingEMI}</p>}
                 </div>

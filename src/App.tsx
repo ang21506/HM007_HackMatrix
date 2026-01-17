@@ -8,9 +8,26 @@ import { EMICalculator } from '@/app/components/EMICalculator';
 import { LoanComparison } from '@/app/components/LoanComparison';
 import { Login } from '@/app/components/Login';
 import { ProfileSetup } from '@/app/components/ProfileSetup';
+import { FinancialLiteracy } from '@/app/components/FinancialLiteracy';
+import { FinancialQuiz } from '@/app/components/FinancialQuiz';
+import { GamificationDashboard } from '@/app/components/GamificationDashboard';
+import { AnimatedBackground } from '@/app/components/AnimatedBackground';
+import { XPGain } from '@/app/components/XPGain';
+import { LevelUpAnimation } from '@/app/components/LevelUpAnimation';
+import { AnimatedCreditScoreMeter } from '@/app/components/AnimatedCreditScoreMeter';
+import { AchievementUnlock } from '@/app/components/AchievementUnlock';
+import { SplashScreen } from '@/app/components/SplashScreen';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card';
-import { TrendingUp, Calculator, FileCheck, GitCompare, User, Activity, LogOut, Moon, Sun } from 'lucide-react';
+import { TrendingUp, Calculator, FileCheck, GitCompare, User, Activity, LogOut, Moon, Sun, BookOpen } from 'lucide-react';
+import {
+  UserStats,
+  calculateLevel,
+  calculateXPForNextLevel,
+  checkAchievements,
+  calculateStreak,
+  awardXP,
+} from '@/app/utils/gamification';
 
 const DEFAULT_PROFILE: UserProfile = {
   name: 'TEJASWINI BURKULE',
@@ -26,6 +43,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [profileComplete, setProfileComplete] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
     return saved === 'true';
@@ -38,12 +56,37 @@ function App() {
 
   const [creditScore, setCreditScore] = useState<number>(0);
   const [creditHistory, setCreditHistory] = useState<CreditScoreData[]>([]);
+  const [userStats, setUserStats] = useState<UserStats>(() => {
+    const saved = localStorage.getItem('userStats');
+    if (saved) return JSON.parse(saved);
+    return {
+      level: 1,
+      xp: 0,
+      xpToNextLevel: 100,
+      streak: 1,
+      lastVisit: new Date().toISOString(),
+      achievements: [],
+    };
+  });
+
+  // Animation states
+  const [xpGains, setXpGains] = useState<Array<{ id: number; xp: number; x: number; y: number }>>([]);
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [newLevel, setNewLevel] = useState(0);
+  const [showAchievement, setShowAchievement] = useState(false);
+  const [unlockedAchievement, setUnlockedAchievement] = useState<any>(null);
 
   useEffect(() => {
     const score = calculateCreditScore(profile);
     setCreditScore(score);
     const history = generateMockCreditHistory(score);
     setCreditHistory(history);
+
+    // Update achievements
+    const achievements = checkAchievements(profile, score, userStats);
+    const updatedStats = { ...userStats, achievements };
+    setUserStats(updatedStats);
+    localStorage.setItem('userStats', JSON.stringify(updatedStats));
   }, [profile]);
 
   const handleLogin = (email: string, name: string) => {
@@ -56,6 +99,23 @@ function App() {
     // Check if profile was already completed
     const completed = localStorage.getItem('profileComplete');
     setProfileComplete(completed === 'true');
+
+    // Award login XP and update streak
+    const xp = awardXP('login');
+    const newStreak = calculateStreak(userStats.lastVisit);
+    const newXP = userStats.xp + xp;
+    const newLevel = calculateLevel(newXP);
+    const updatedStats: UserStats = {
+      ...userStats,
+      xp: newXP,
+      level: newLevel,
+      xpToNextLevel: calculateXPForNextLevel(newLevel),
+      streak: newStreak,
+      lastVisit: new Date().toISOString(),
+    };
+    setUserStats(updatedStats);
+    localStorage.setItem('userStats', JSON.stringify(updatedStats));
+    localStorage.setItem('userStreak', String(newStreak));
   };
 
   const handleProfileComplete = (newProfile: UserProfile) => {
@@ -63,11 +123,57 @@ function App() {
     setProfileComplete(true);
     localStorage.setItem('userProfile', JSON.stringify(newProfile));
     localStorage.setItem('profileComplete', 'true');
+
+    // Award XP for profile completion
+    const xp = awardXP('profile_update');
+    const newXP = userStats.xp + xp;
+    const newLevel = calculateLevel(newXP);
+    const updatedStats = {
+      ...userStats,
+      xp: newXP,
+      level: newLevel,
+      xpToNextLevel: calculateXPForNextLevel(newLevel),
+    };
+    setUserStats(updatedStats);
+    localStorage.setItem('userStats', JSON.stringify(updatedStats));
   };
 
   const handleProfileSkip = () => {
     setProfileComplete(true);
     localStorage.setItem('profileComplete', 'true');
+  };
+
+  const handleXPEarned = (xp: number) => {
+    const newXP = userStats.xp + xp;
+    const newLevel = calculateLevel(newXP);
+    const oldLevel = userStats.level;
+    
+    // Trigger XP gain animation
+    const id = Date.now();
+    setXpGains((prev) => [
+      ...prev,
+      { id, xp, x: Math.random() * 80 + 10, y: Math.random() * 60 + 20 },
+    ]);
+
+    const updatedStats: UserStats = {
+      ...userStats,
+      xp: newXP,
+      level: newLevel,
+      xpToNextLevel: calculateXPForNextLevel(newLevel),
+    };
+    setUserStats(updatedStats);
+    localStorage.setItem('userStats', JSON.stringify(updatedStats));
+
+    // Trigger level up animation if leveled up
+    if (newLevel > oldLevel) {
+      setNewLevel(newLevel);
+      setShowLevelUp(true);
+    }
+
+    // Remove XP gain after animation
+    setTimeout(() => {
+      setXpGains((prev) => prev.filter((g) => g.id !== id));
+    }, 2100);
   };
 
   const handleLogout = () => {
@@ -108,6 +214,11 @@ function App() {
     }
   }, []);
 
+  // Show splash screen first
+  if (showSplash) {
+    return <SplashScreen onComplete={() => setShowSplash(false)} />;
+  }
+
   if (!isLoggedIn) {
     return <Login onLogin={handleLogin} />;
   }
@@ -131,8 +242,33 @@ function App() {
   const financialHealthScore = Math.min(100, Math.round((disposableIncome / profile.monthlyIncome) * 200));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <header className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 sticky top-0 z-10 shadow-sm">
+    <div className={`min-h-screen ${isDarkMode ? 'dark' : ''} bg-background text-foreground`}>
+      <AnimatedBackground />
+      
+      {/* XP Gain Animations */}
+      {xpGains.map((gain) => (
+        <XPGain key={gain.id} xp={gain.xp} x={gain.x} y={gain.y} />
+      ))}
+
+      {/* Level Up Animation */}
+      {showLevelUp && (
+        <LevelUpAnimation
+          level={newLevel}
+          onComplete={() => setShowLevelUp(false)}
+        />
+      )}
+
+      {/* Achievement Unlock */}
+      {showAchievement && unlockedAchievement && (
+        <AchievementUnlock
+          title={unlockedAchievement.name}
+          description={unlockedAchievement.description}
+          icon={unlockedAchievement.icon || 'award'}
+          onComplete={() => setShowAchievement(false)}
+        />
+      )}
+
+      <header className="bg-background border-b border-border sticky top-0 z-10 shadow-sm relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -145,6 +281,10 @@ function App() {
               </div>
             </div>
             <div className="hidden md:flex items-center gap-6">
+              <div className="text-right">
+                <p className="text-sm text-gray-600 dark:text-gray-300">Level</p>
+                <p className="text-xl font-bold text-purple-600 dark:text-purple-400">{userStats.level}</p>
+              </div>
               <div className="text-right">
                 <p className="text-sm text-gray-600 dark:text-gray-300">Credit Score</p>
                 <p className="text-xl font-bold text-blue-600 dark:text-blue-400">{creditScore}</p>
@@ -203,10 +343,18 @@ function App() {
         </Card>
 
         <Tabs defaultValue="dashboard" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 h-auto gap-2">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-8 h-auto gap-2">
             <TabsTrigger value="dashboard" className="flex items-center gap-2 py-3">
               <Activity className="size-4" />
               <span className="hidden sm:inline">Dashboard</span>
+            </TabsTrigger>
+            <TabsTrigger value="achievements" className="flex items-center gap-2 py-3">
+              <TrendingUp className="size-4" />
+              <span className="hidden sm:inline">Progress</span>
+            </TabsTrigger>
+            <TabsTrigger value="simulator" className="flex items-center gap-2 py-3">
+              <BookOpen className="size-4" />
+              <span className="hidden sm:inline">Learn</span>
             </TabsTrigger>
             <TabsTrigger value="profile" className="flex items-center gap-2 py-3">
               <User className="size-4" />
@@ -214,15 +362,11 @@ function App() {
             </TabsTrigger>
             <TabsTrigger value="credit" className="flex items-center gap-2 py-3">
               <TrendingUp className="size-4" />
-              <span className="hidden sm:inline">Credit Score</span>
+              <span className="hidden sm:inline">Score</span>
             </TabsTrigger>
             <TabsTrigger value="eligibility" className="flex items-center gap-2 py-3">
               <FileCheck className="size-4" />
               <span className="hidden sm:inline">Eligibility</span>
-            </TabsTrigger>
-            <TabsTrigger value="calculator" className="flex items-center gap-2 py-3">
-              <Calculator className="size-4" />
-              <span className="hidden sm:inline">EMI Calc</span>
             </TabsTrigger>
             <TabsTrigger value="compare" className="flex items-center gap-2 py-3">
               <GitCompare className="size-4" />
@@ -246,45 +390,54 @@ function App() {
                         const tabsList = document.querySelector('[data-tab-trigger="eligibility"]') as HTMLElement;
                         tabsList?.click();
                       }}
-                      className="p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="p-4 border border-border rounded-lg bg-card hover:bg-muted transition-colors text-left"
                     >
                       <FileCheck className="size-5 text-blue-600 mb-2" />
-                      <p className="font-medium text-sm text-gray-900 dark:text-white">Check Eligibility</p>
+                      <p className="font-medium text-sm text-foreground">Check Eligibility</p>
                     </button>
                     <button
                       onClick={() => {
                         const tabsList = document.querySelector('[data-tab-trigger="calculator"]') as HTMLElement;
                         tabsList?.click();
                       }}
-                      className="p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="p-4 border border-border rounded-lg bg-card hover:bg-muted transition-colors text-left"
                     >
                       <Calculator className="size-5 text-green-600 mb-2" />
-                      <p className="font-medium text-sm text-gray-900 dark:text-white">Calculate EMI</p>
+                      <p className="font-medium text-sm text-foreground">Calculate EMI</p>
                     </button>
                     <button
                       onClick={() => {
                         const tabsList = document.querySelector('[data-tab-trigger="compare"]') as HTMLElement;
                         tabsList?.click();
                       }}
-                      className="p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="p-4 border border-border rounded-lg bg-card hover:bg-muted transition-colors text-left"
                     >
                       <GitCompare className="size-5 text-purple-600 mb-2" />
-                      <p className="font-medium text-sm text-gray-900 dark:text-white">Compare Loans</p>
+                      <p className="font-medium text-sm text-foreground">Compare Loans</p>
                     </button>
                     <button
                       onClick={() => {
                         const tabsList = document.querySelector('[data-tab-trigger="credit"]') as HTMLElement;
                         tabsList?.click();
                       }}
-                      className="p-4 border dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="p-4 border border-border rounded-lg bg-card hover:bg-muted transition-colors text-left"
                     >
                       <TrendingUp className="size-5 text-orange-600 mb-2" />
-                      <p className="font-medium text-sm text-gray-900 dark:text-white">View Trends</p>
+                      <p className="font-medium text-sm text-foreground">View Trends</p>
                     </button>
                   </CardContent>
                 </Card>
               </div>
             </div>
+          </TabsContent>
+
+          <TabsContent value="achievements">
+            <GamificationDashboard stats={userStats} />
+          </TabsContent>
+
+          <TabsContent value="simulator" className="space-y-6">
+            <FinancialLiteracy />
+            <FinancialQuiz onXPEarned={handleXPEarned} />
           </TabsContent>
 
           <TabsContent value="profile">
@@ -309,7 +462,7 @@ function App() {
         </Tabs>
       </main>
 
-      <footer className="bg-white border-t mt-12">
+      <footer className="bg-background border-t border-border mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-600">
             <div>
