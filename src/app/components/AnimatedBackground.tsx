@@ -26,7 +26,7 @@ export function AnimatedBackground() {
       transition: {
         duration: 15,
         repeat: Infinity,
-        ease: 'linear',
+          ease: "linear" as const,
       },
     },
   };
