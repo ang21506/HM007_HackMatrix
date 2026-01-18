@@ -1,12 +1,12 @@
 # HM007 HackMatrix
 
-Empowering financial wellness with a gamified, interactive experience. Track and simulate credit scores, evaluate loan eligibility, compare products, and engage with financial literacy — all in a sleek React + Vite app.
+💳 Empowering financial wellness with a gamified, interactive experience. Track and simulate credit scores, evaluate loan eligibility, compare products, and engage with financial literacy — all in a sleek React + Vite app.
 
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Build](https://img.shields.io/badge/build-vite-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-## Table of Contents
+## 📑 Table of Contents
 - Overview
 - Features
 - Tech Stack
@@ -21,30 +21,30 @@ Empowering financial wellness with a gamified, interactive experience. Track and
 - Contributing
 - License
 
-## Overview
+## 🧭 Overview
 HackMatrix is a modern SPA focused on financial literacy and planning. It blends calculators, interactive visuals, and gamified progression (XP, levels, achievements) to keep users engaged while learning and managing their finances.
 
-## Features
-- Credit score tracker with animated meter and history
-- Credit score simulator with mock credit events
-- Loan eligibility checker and EMI calculator
-- Loan product comparison view
-- Gamification: XP gain, level-up, achievements, splash screen
-- Financial literacy modules and quiz
-- Animated backgrounds and visualizations (particles, globe, mesh)
+## ✨ Features
+- 📈 Credit score tracker with animated meter and history
+- 🧮 Credit score simulator with mock credit events
+- ✅ Loan eligibility checker and EMI calculator
+- 🔍 Loan product comparison view
+- 🏆 Gamification: XP gain, level-up, achievements, splash screen
+- 📚 Financial literacy modules and quiz
+- 🌌 Animated backgrounds and visualizations (particles, globe, mesh)
 
-## Tech Stack
-- React 18, TypeScript, Vite, Tailwind CSS, Framer Motion
-- three.js for visuals
-- Deployed as a Static Site on Render
+## 🛠️ Tech Stack
+- ⚛️ React 18, TypeScript, Vite, Tailwind CSS, Framer Motion
+- 🌐 three.js for visuals
+- 🚀 Deployed as a Static Site on Render
 
-## Live Demo
+## 🔗 Live Demo
 - Deployed URL: https://hm007-hack-matrix.onrender.com
 
-## Documentation
+## 📄 Documentation
 - Project Report: [docs/Project Documentation 02.pdf](docs/Project%20Documentation%2002.pdf)
 
-## Quick Start
+## 🚀 Quick Start
 ```bash
 # Clone
 git clone https://github.com/ang21506/HM007_HackMatrix.git
@@ -58,7 +58,7 @@ npm run dev
 # Opens at http://localhost:5173/
 ```
 
-## Build & Preview
+## 🧪 Build & Preview
 ```bash
 # Build production assets
 npm run build
@@ -67,7 +67,7 @@ npm run build
 npm run preview
 ```
 
-## Deployment (Render - Static Site)
+## ☁️ Deployment (Render - Static Site)
 - Build Command: `npm install; npm run build`
 - Publish Directory: `dist`
 - Config: `render.yaml` with SPA route rewrites
@@ -78,7 +78,7 @@ Steps:
 3. Set Build Command and Publish Directory
 4. Auto-deploys on every `git push`
 
-## Project Structure
+## 🗂️ Project Structure
 ```
 HM007_HackMatrix/
 ├── src/
@@ -99,14 +99,14 @@ HM007_HackMatrix/
 └── tailwind.config.js
 ```
 
-## Architecture (High-Level)
+## 🧱 Architecture (High-Level)
 - Frontend SPA (React + Vite)
 - UI modules in `src/app/components` (trackers, calculators, animations)
 - Shared domain types in `src/app/types.ts`
 - Core calculations/utilities in `src/app/utils`
 - Optional backend scaffolding under `server/` for future expansion
 
-## Screenshots
+## 🖼️ Screenshots
 Recommended highlights to include:
 - Dashboard Overview: [docs/screenshots/dashboard.jpeg](docs/screenshots/dashboard.jpeg)
 - Loan Eligibility: [docs/screenshots/eligibility.jpeg](docs/screenshots/eligibility.jpeg)
@@ -118,23 +118,27 @@ Recommended highlights to include:
 
 Screenshots are stored under `docs/screenshots/`.
 
-## Roadmap
-- Enhanced data persistence (localStorage/remote)
-- More achievement tiers and challenges
-- Accessibility and performance audits
-- i18n for multi-language support
+## 🌟 Future Scope
+- 🔗 Integration with real credit bureau APIs
+- 🔐 Secure user authentication
+- 🗄️ Backend database support
+- 📊 Advanced analytics and personalized recommendations
+- 📱 Mobile application support
+- 🏆 More achievement tiers and challenges
+- ♿ Accessibility and performance audits
+- 🌐 i18n for multi-language support
 
-## Contributing
+## 🤝 Contributing
 Pull requests are welcome. Please:
 - Run `npm run build` to ensure type safety
 - Keep components small and reusable
 - Follow existing alias usage (`@/` resolves to `src/`)
 
-## Team
+## 👥 Team
 - Omkar Nikam — [OMKAR-PSN](https://github.com/OMKAR-PSN)
 - Atharva Gonde — [ang21506](https://github.com/ang21506)
 - Tejaswini Burkule — [tejaswiniburkule](https://github.com/tejaswiniburkule)
-- Aryan Dalvi
+- Aryan Dalvi — [AryanDalvi03](https://github.com/AryanDalvi03)
 
-## License
+## 📜 License
 MIT — see `LICENSE`
