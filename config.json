@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "ANG21506", 
+    "database": "credit_health_db",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
